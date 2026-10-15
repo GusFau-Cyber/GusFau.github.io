@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gustave Faure</title>
+<meta name="description" content="Portfolio de Gustave Faure, Etudiant en Science des données.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   1. PERSONNALISATION : couleurs, polices, largeur
+   Changez uniquement les valeurs ci-dessous.
+   ===================================================== */
+:root {
+  --fond:      #EEF1F4;   /* fond de la page */
+  --encre:     #1B2430;   /* texte principal */
+  --discret:   #5B6675;   /* texte secondaire */
+  --accent:    #3352FF;   /* couleur d'accent (liens, boutons) */
+  --accent-texte: #FFFFFF;/* texte sur fond accent */
+  --bloc:      #DDE3EA;   /* fond des pastilles et zones */
+  --trait:     #C5CDD7;   /* lignes de séparation */
+
+  --police-titre: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  --police-texte: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --largeur: 1040px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --fond: #12171E; --encre: #E8ECF1; --discret: #9AA5B4;
+    --accent: #7C93FF; --accent-texte: #0E1320; --bloc: #1E2630; --trait: #2C3644;
+  }
+}
+:root[data-theme="dark"] {
+  --fond: #12171E; --encre: #E8ECF1; --discret: #9AA5B4;
+  --accent: #7C93FF; --accent-texte: #0E1320; --bloc: #1E2630; --trait: #2C3644;
+}
+
+/* =====================================================
+   2. STYLE GÉNÉRAL (à modifier si vous êtes à l'aise)
+   ===================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+body {
+  margin: 0; background: var(--fond); color: var(--encre);
+  font: 400 1.0625rem/1.65 var(--police-texte);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.conteneur { width: min(100% - 2.5rem, var(--largeur)); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--police-titre); line-height: 1.05; margin: 0; letter-spacing: -0.02em; }
+
+/* En-tête */
+header.haut { padding: 1.5rem 0; }
+header.haut .conteneur { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.logo { font-family: var(--police-titre); font-weight: 800; text-decoration: none; font-size: 1.15rem; }
+nav { display: flex; gap: 1.5rem; align-items: center; }
+nav a { text-decoration: none; color: var(--discret); font-weight: 500; }
+nav a:hover { color: var(--encre); }
+#theme {
+  background: var(--bloc); color: var(--encre); border: 0; cursor: pointer;
+  padding: .45rem .9rem; border-radius: 999px; font: 500 .9rem var(--police-texte);
+}
+
+/* Introduction : c'est le seul élément "spectaculaire" de la page */
+.intro { padding: clamp(3rem, 10vw, 7rem) 0 clamp(3rem, 8vw, 6rem); }
+.intro h1 {
+  font-size: clamp(3rem, 11vw, 8.5rem); font-weight: 800; letter-spacing: -0.045em;
+  max-width: 11ch; animation: monte .8s cubic-bezier(.2,.7,.2,1) both;
+}
+.intro p.accroche { font-size: clamp(1.15rem, 2.4vw, 1rem); max-width: 34ch; margin: 1.5rem 0 2.25rem; color: var(--discret); }
+@keyframes monte { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+.bouton {
+  display: inline-block; padding: .85rem 1.5rem; border-radius: 999px; text-decoration: none;
+  font-weight: 600; background: var(--accent); color: var(--accent-texte); transition: transform .15s;
+}
+.bouton:hover { transform: translateY(-2px); }
+.bouton.secondaire { background: transparent; color: var(--encre); box-shadow: inset 0 0 0 2px var(--trait); margin-left: .5rem; }
+.hero-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:60px;
+}
+
+.hero-texte{
+  flex:1;
+}
+
+.photo-profil{
+  width:300px;
+  height:300px;
+  object-fit:cover;
+  border-radius:50%;
+  border:4px solid var(--accent);
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+  flex-shrink:0;
+}
+
+@media (max-width:768px){
+  .hero-top{
+    flex-direction:column-reverse;
+    text-align:center;
+    gap:30px;
+  }
+
+  .photo-profil{
+    width:180px;
+    height:180px;
+  }
+}
+/* Sections */
+section { padding: clamp(3rem, 7vw, 5.5rem) 0; border-top: 1px solid var(--trait); }
+section > .conteneur > h2 { font-size: clamp(1.8rem, 4vw, 2.75rem); margin-bottom: 2.5rem; }
+
+/* Projets : une ligne par projet, l'année sert de repère chronologique */
+.projet {
+  width: 100%; text-align: left; background: none; color: inherit; font: inherit; cursor: pointer;
+  border: 0; display: grid; grid-template-columns: 5rem 1fr auto; gap: 1.5rem; align-items: baseline;
+  padding: 1.75rem 0; border-bottom: 1px solid var(--trait);
+}
+.projet:first-of-type { border-top: 1px solid var(--trait); }
+.projet .annee { color: var(--discret); font-variant-numeric: tabular-nums; }
+.projet h3 { font-size: clamp(1.4rem, 3vw, 2rem); transition: color .15s; }
+.projet:hover h3 { color: var(--accent); }
+.projet p { margin: .4rem 0 0; color: var(--discret); max-width: 52ch; }
+.projet .tags { display: flex; gap: .4rem; flex-wrap: wrap; justify-content: flex-end; }
+.tag { background: var(--bloc); padding: .2rem .7rem; border-radius: 999px; font-size: .85rem; }
+
+/* Fenêtres de projet */
+dialog.fenetre {
+  border: 0; padding: 0; border-radius: 20px; width: min(92vw, 640px); max-height: 90vh;
+  background: var(--fond); color: var(--encre); overflow: auto;
+}
+dialog.fenetre[open] { animation: monte .3s cubic-bezier(.2,.7,.2,1) both; }
+dialog.fenetre::backdrop { background: rgba(10, 15, 25, .6); }
+.fenetre .visuel { aspect-ratio: 16 / 9; background: var(--bloc); display: grid; place-items: center; color: var(--discret); font-size: .9rem; overflow: hidden; }
+.fenetre .visuel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fenetre .corps { padding: 1.75rem 1.75rem 2rem; }
+.fenetre h3 { font-size: clamp(1.6rem, 4vw, 2.25rem); margin-bottom: .75rem; }
+.fenetre p { margin: 0 0 1rem; color: var(--discret); }
+.fenetre dl { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.25rem; margin: 1.25rem 0 1.75rem; }
+.fenetre dt { color: var(--discret); }
+.fenetre dd { margin: 0; }
+.fenetre .actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+.fenetre .actions button.bouton { border: 0; cursor: pointer; font: 600 1rem var(--police-texte); }
+.fenetre .actions .bouton.secondaire { margin-left: 0; }
+
+/* À propos */
+.apropos { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(2rem, 6vw, 5rem); }
+.apropos p { margin: 0 0 1.1rem; max-width: 60ch; }
+.competences h3 { font-size: 1.15rem; margin-bottom: 1rem; }
+.competences ul { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-wrap: wrap; gap: .5rem; }
+.competences li { background: var(--bloc); padding: .3rem .85rem; border-radius: 999px; font-size: .95rem; }
+
+/* Contact */
+.contact .conteneur > h2 { margin-bottom: 1rem; }
+.contact a.mail {
+  font-family: var(--police-texte); font-weight: 600; letter-spacing: -0.03em;
+  font-size: clamp(0.5rem, 2vw, 1.5rem); text-decoration: none; overflow-wrap: anywhere;
+  border-bottom: 3px solid var(--accent);
+}
+.contact a.mail:hover { color: var(--accent); }
+.reseaux { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+.reseaux a { color: var(--discret); }
+.reseaux a:hover { color: var(--encre); }
+footer { padding: 2rem 0 3rem; color: var(--discret); font-size: .9rem; }
+
+@media (max-width: 720px) {
+  .projet { grid-template-columns: 1fr; gap: .5rem; }
+  .projet .tags { justify-content: flex-start; }
+  .apropos { grid-template-columns: 1fr; }
+  .bouton.secondaire { margin: .75rem 0 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     3. VOTRE CONTENU : remplacez les textes ci-dessous
+     ===================================================== -->
+
+<header class="haut">
+  <div class="conteneur">
+    <a class="logo" href="#">Gustave Faure</a>
+    <nav aria-label="Navigation principale">
+      <a href="#projets">Projets</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+      <button id="theme" type="button" aria-label="Changer de thème">Thème</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- INTRODUCTION -->
+<div class="intro">
+  <div class="conteneur">
+
+    <div class="hero-top">
+      <div class="hero-texte">
+        <h1>Gustave Faure</h1>
+        <p class="accroche">
+          Étudiant en science des données. Je vous partage mes différents projets et réalisations.
+        </p>
+
+        <a class="bouton" href="#projets">Voir mes projets</a>
+        <a class="bouton secondaire" href="#contact">Me contacter</a>
+      </div>
+
+      <span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOJ4IZbkwwyJD4dq7MObC7x1gpYN0xVkTOV_X9T9ZCMQ&s=10" alt="Description de l'image"></span>
+
+    </div>
+
+  </div>
+</div>
+
+  <!-- PROJETS : chaque ligne ouvre la fenêtre portant le même identifiant (voir plus bas).
+       Pour en ajouter : copiez une ligne ET sa fenêtre, puis changez l'identifiant. -->
+  <section id="projets">
+    <div class="conteneur">
+      <h2>Projets</h2>
+
+      <button type="button" class="projet" data-ouvre="projet-1">
+        <span class="annee">2026</span>
+        <div>
+          <h3>Site du club de quartier</h3>
+          <p>Refonte complète : agenda, inscriptions en ligne et affiches à imprimer.</p>
+        </div>
+        <div class="tags"><span class="tag">Web</span><span class="tag">Design</span></div>
+      </button>
+
+      <button type="button" class="projet" data-ouvre="projet-2">
+        <span class="annee">2025</span>
+        <div>
+          <h3>Application de suivi de budget</h3>
+          <p>Une application mobile simple pour suivre ses dépenses au quotidien.</p>
+        </div>
+        <div class="tags"><span class="tag">Mobile</span><span class="tag">UX</span></div>
+      </button>
+
+      <button type="button" class="projet" data-ouvre="projet-3">
+        <span class="annee">2024</span>
+        <div>
+          <h3>Identité visuelle d'une librairie</h3>
+          <p>Logo, papeterie et signalétique pour une librairie indépendante.</p>
+        </div>
+        <div class="tags"><span class="tag">Identité</span><span class="tag">Print</span></div>
+      </button>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+ <section id="apropos">
+  <div class="conteneur apropos">
+    <div>
+      <h2>À propos</h2>
+
+      <p>
+        Je suis étudiant en Science des Données à l'IUT de Lisieux.<br>
+        Passionné par l'analyse de données, la programmation et la
+        résolution de problèmes, je développe continuellement mes
+        compétences à travers mes études et mes projets personnels.
+      </p>
+
+      <h3>Formation</h3><br>
+      <p>
+        <strong>BUT Science des Données</strong><br>
+        IUT de Lisieux<br>
+        2025 - Présent
+      <p>
+	<strong>Baccalauréat général</strong><br>
+        LPO Arcisse de Caumont<br>
+	obtenu : Mention Assez Bien<br>
+        2023 - 2026
+      </p>
+
+          </div>
+
+    <div class="competences">
+      <h3>Compétences</h3>
+      <ul>
+        <li>Python</li>
+        <li>R</li>
+        <li>Statistiques</li>
+        <li>Analyse de données</li>
+        <li>Microsoft Office</li>
+      </ul>
+
+      <h3>Outils</h3>
+      <ul>
+        <li>VS Code</li>
+        <li>Excel</li>
+        <li>Power BI</li>
+        <li>Canva</li>
+        <li>GitHub</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="conteneur">
+      <h2>Pour me contacter : </h2>
+      <a class="mail" href="MailTo:gustavefaure72@gmail.com">
+	gustavefaure72@gmail.com</a>
+      <div class="reseaux">
+        <a href="https://www.linkedin.com/in/gustave-faure/">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<dialog class="fenetre" id="projet-1" aria-labelledby="projet-1-titre">
+  <div class="visuel">
+    <!-- Remplacez par : <img src="images/projet-1.jpg" alt="Description de l'image"> -->
+    <span><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOJ4IZbkwwyJD4dq7MObC7x1gpYN0xVkTOV_X9T9ZCMQ&s=10" alt="Description de l'image"></span>
+  </div>
+  <div class="corps">
+    <h3 id="projet-1-titre">Site du club de quartier</h3>
+    <p>Le club avait un site qui datait et personne ne savait le mettre à jour. J'ai tout repris : un agenda lisible, des inscriptions en ligne et des affiches prêtes à imprimer.</p>
+    <dl><dt>Année</dt><dd>2026</dd><dt>Rôle</dt><dd>Design et développement</dd><dt>Durée</dt><dd>3 mois</dd></dl>
+    <div class="actions">
+      <a class="bouton" href="#">Voir le projet</a>
+      <button type="button" class="bouton secondaire" data-ferme>Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="fenetre" id="projet-2" aria-labelledby="projet-2-titre">
+  <div class="visuel">
+    <!-- Remplacez par : <img src="images/projet-2.jpg" alt="Description de l'image"> -->
+    <span>Votre image ici</span>
+  </div>
+  <div class="corps">
+    <h3 id="projet-2-titre">Application de suivi de budget</h3>
+    <p>Une application mobile qui permet de noter une dépense en deux gestes et de voir où part l'argent chaque mois, sans tableau compliqué.</p>
+    <dl><dt>Année</dt><dd>2025</dd><dt>Rôle</dt><dd>Conception UX et interface</dd><dt>Durée</dt><dd>5 mois</dd></dl>
+    <div class="actions">
+      <a class="bouton" href="#">Voir le projet</a>
+      <button type="button" class="bouton secondaire" data-ferme>Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="fenetre" id="projet-3" aria-labelledby="projet-3-titre">
+  <div class="visuel">
+    <!-- Remplacez par : <img src="images/projet-3.jpg" alt="Description de l'image"> -->
+    <span>Votre image ici</span>
+  </div>
+  <div class="corps">
+    <h3 id="projet-3-titre">Identité visuelle d'une librairie</h3>
+    <p>Logo, papeterie, sacs et signalétique pour une librairie indépendante. Le tout tient sur une palette de deux couleurs et une seule police.</p>
+    <dl><dt>Année</dt><dd>2024</dd><dt>Rôle</dt><dd>Direction artistique</dd><dt>Durée</dt><dd>6 semaines</dd></dl>
+    <div class="actions">
+      <a class="bouton" href="#">Voir le projet</a>
+      <button type="button" class="bouton secondaire" data-ferme>Fermer</button>
+    </div>
+  </div>
+</dialog>
+
+<footer>
+  <div class="conteneur">© 2026 Gustave Faure</div>
+</footer>
+
+<script>
+/* Bouton de thème : alterne clair / sombre et retient le choix */
+(function () {
+  var racine = document.documentElement;
+  try {
+    var choix = localStorage.getItem("theme");
+    if (choix) racine.setAttribute("data-theme", choix);
+  } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var sombre = racine.getAttribute("data-theme") === "dark" ||
+      (!racine.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    var suivant = sombre ? "light" : "dark";
+    racine.setAttribute("data-theme", suivant);
+    try { localStorage.setItem("theme", suivant); } catch (e) {}
+  });
+})();
+
+/* Fenêtres de projet : ouverture, fermeture (bouton, clic à côté, touche Échap) */
+document.querySelectorAll("[data-ouvre]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    document.getElementById(b.getAttribute("data-ouvre")).showModal();
+  });
+});
+document.querySelectorAll("dialog.fenetre").forEach(function (d) {
+  d.addEventListener("click", function (e) { if (e.target === d) d.close(); });
+  d.querySelectorAll("[data-ferme]").forEach(function (b) {
+    b.addEventListener("click", function () { d.close(); });
+  });
+});
+</script>
+</body>
+</html>
